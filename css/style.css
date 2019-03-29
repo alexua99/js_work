@@ -1,6 +1,10 @@
 .h1 {
-  color: aliceblue;
-  font-size: 20px; }
+  color: #00050a;
+  font-size: 40px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); }
   .h1:hover {
     background-color: aqua; }
 
