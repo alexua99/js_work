@@ -7,16 +7,9 @@
     <title>JS_worck</title>
     <!--Style.css-->
     <link rel="stylesheet" href="css/style.css">
-    <style>
-
-        td input{
-            font-size: 30px;
-            padding: 20px;
-        }
-    </style>
 </head>
 <body>
-    <div class="h1">Калькулятор!</div>
+<!--
     <form name="calc" action="">
         <table class="tblCalc" cellpadding=0 cellspacing=0>
             <tr>
@@ -81,124 +74,167 @@
             </tr>
         </table>
     </form>
+-->
+
+    <section>
+        <div name="calc">
+            <div class="input">
+                <input id="editWide" name="ReadOut" type="Text" value="0">
+                <input value="MC" type="Button" id="mc1" onclick="mc()" />
+                <input value="MC+" type="Button"  onclick="mcc()" />
+                <input name="btnClear" type="Button"
+                       value="C" onclick="Clear()" />
+                <input name="btnClearEntry" type="Button"
+                       value="CE" onclick="ClearEntry()" /><
+            </div>
+            <div class="row">
+                <input name="btnSeven" type="Button" value="7" onclick="NumPressed(7)">
+                <input name="btnEight" type="Button" value="8" onclick="NumPressed(8)">
+                <input name="btnNine" type="Button" value="9" onclick="NumPressed(9)">
+                <input name="btnPlus" type="Button" value="+" onclick="Operation('+')">
+                <input name="btnMultiply" type="Button" value="*" onclick="Operation('*')" />
+            </div>
+            <div class="row">
+                <input name="btnFour" type="Button" value="4" onclick="NumPressed(4)">
+                <input name="btnFive" type="Button" value="5" onclick="NumPressed(5)">
+                <input name="btnSix" type="Button" value="6" onclick="NumPressed(6)">
+                <input name="btnMinus" type="Button" value="-" onclick="Operation('-')">
+                <input name="btnDivide" type="Button"
+                       value=" / " onclick="Operation('/')" />
+            </div>
+            <div class="row">
+                <input name="btnOne" type="Button" value="1" onclick="NumPressed(1)">
+                <input name="btnTwo" type="Button" value="2" onclick="NumPressed(2)">
+                <input name="btnThree" type="Button" value="3" onclick="NumPressed(3)">
+                <input name="btnMultiply" type="Button" value="*" onclick="Operation('*')">
+                <input name="btnPercent" type="Button"
+                       value="%" onclick="Percent()" />
+            </div>
+            <div class="row">
+                <input name="btnNeg" type="button" value="+/-" onclick="Neg()">
+                <input name="btnZero" type="Button" value="0" onclick="NumPressed(0)">
+                <input name="btnDecimal" type="Button" value="." onclick="Decimal()">
+                <input id="btnWide" name="btnEquals"
+                       type="Button" value="=" onclick="Operation('=')">
+            </div>
+        </div>
+    </section>
+    <script src="js/index.js">
+        var Fcalc = document.calc;
+        var Currents = 0;
+        var FlagNewNum = false;
+        var PendingOp = "";
 
 
-<script type="text/javascript">
-    var Fcalc = document.calc;
-    var Currents = 0;
-    var FlagNewNum = false;
-    var PendingOp = "";
-
-
-    // обработчик нажатия
-    // цифровой кнопки
-    function NumPressed (Num)
-    {
-        if (FlagNewNum)
+        // обработчик нажатия
+        // цифровой кнопки
+        function NumPressed (Num)
         {
-            Fcalc.ReadOut.value = Num;
-            FlagNewNum = false;
-        }
-        else
-        {
-            if (Fcalc.ReadOut.value == "0")
+            if (FlagNewNum)
+            {
                 Fcalc.ReadOut.value = Num;
+                FlagNewNum = false;
+            }
             else
-                Fcalc.ReadOut.value += Num;
-        }
-    }
-
-    //возвращает результат
-    var arry = [];
-    function mc() {
-        if (arry.length > 0){
-            arry.reverse();
-            var b = arry.shift();
-            document.getElementById('editWide').value = b;
+            {
+                if (Fcalc.ReadOut.value == "0")
+                    Fcalc.ReadOut.value = Num;
+                else
+                    Fcalc.ReadOut.value += Num;
+            }
         }
 
-    }
-    //Сохраняет результат
-    function mcc() {
-        var total = arry.push(Currents)
-    }
+        //возвращает результат
+        var arry = [];
+        function mc() {
+            if (arry.length > 0){
+                arry.reverse();
+                var b = arry.shift();
+                document.getElementById('editWide').value = b;
+            }
 
-    // обработчик нажатия
-    // кнопки действия
-    function Operation (Op)
-    {
-        var Readout = Fcalc.ReadOut.value;
-        if (FlagNewNum && PendingOp != "=")
+        }
+        //Сохраняет результат
+        function mcc() {
+            var total = arry.push(Currents)
+        }
+
+        // обработчик нажатия
+        // кнопки действия
+        function Operation (Op)
         {
-            Fcalc.ReadOut.value = Currents;
+            var Readout = Fcalc.ReadOut.value;
+            if (FlagNewNum && PendingOp != "=")
+            {
+                Fcalc.ReadOut.value = Currents;
+            }
+            else
+            {
+                FlagNewNum = true;
+                if ( '+' == PendingOp )
+                    Currents += parseFloat(Readout);
+                else if ( '-' == PendingOp )
+                    Currents -= parseFloat(Readout);
+                else if ( '/' == PendingOp )
+                    Currents /= parseFloat(Readout);
+                else if ( '*' == PendingOp )
+                    Currents *= parseFloat(Readout);
+                else
+                    Currents = parseFloat(Readout);
+                Fcalc.ReadOut.value = Currents;
+                PendingOp = Op;
+            }
+            //var total = arry.push(Currents);
         }
-        else
+
+
+
+        // добавление десятичной точки с числу
+        function Decimal ()
         {
+            var curReadOut = Fcalc.ReadOut.value;
+            if (FlagNewNum)
+            {
+                curReadOut = "0.";
+                FlagNewNum = false;
+            }
+            else
+            {
+                if (curReadOut.indexOf(".") == -1)
+                    curReadOut += ".";
+            }
+            Fcalc.ReadOut.value = curReadOut;
+        }
+
+        // Очистка текущего результата
+        function ClearEntry ()
+        {
+            Fcalc.ReadOut.value = "0";
             FlagNewNum = true;
-            if ( '+' == PendingOp )
-                Currents += parseFloat(Readout);
-            else if ( '-' == PendingOp )
-                Currents -= parseFloat(Readout);
-            else if ( '/' == PendingOp )
-                Currents /= parseFloat(Readout);
-            else if ( '*' == PendingOp )
-                Currents *= parseFloat(Readout);
-            else
-                Currents = parseFloat(Readout);
-            Fcalc.ReadOut.value = Currents;
-            PendingOp = Op;
         }
-        //var total = arry.push(Currents);
-    }
 
-
-
-    // добавление десятичной точки с числу
-    function Decimal ()
-    {
-        var curReadOut = Fcalc.ReadOut.value;
-        if (FlagNewNum)
+        // Полная очистка всех результатов
+        function Clear ()
         {
-            curReadOut = "0.";
-            FlagNewNum = false;
+            Currents = 0;
+            PendingOp = "";
+            ClearEntry();
+
         }
-        else
+
+        // меняем знак текущего результата
+        function Neg ()
         {
-            if (curReadOut.indexOf(".") == -1)
-                curReadOut += ".";
+            Fcalc.ReadOut.value =
+                parseFloat(Fcalc.ReadOut.value) * -1;
         }
-        Fcalc.ReadOut.value = curReadOut;
-    }
-
-    // Очистка текущего результата
-    function ClearEntry ()
-    {
-        Fcalc.ReadOut.value = "0";
-        FlagNewNum = true;
-    }
-
-    // Полная очистка всех результатов
-    function Clear ()
-    {
-        Currents = 0;
-        PendingOp = "";
-        ClearEntry();
-
-    }
-
-    // меняем знак текущего результата
-    function Neg ()
-    {
-        Fcalc.ReadOut.value =
-            parseFloat(Fcalc.ReadOut.value) * -1;
-    }
-    // вычисляем значение процентов
-    function Percent ()
-    {
-        Fcalc.ReadOut.value =
-            (parseFloat(Fcalc.ReadOut.value) / 100) *
-            parseFloat(Currents);
-    }
-</script>
+        // вычисляем значение процентов
+        function Percent ()
+        {
+            Fcalc.ReadOut.value =
+                (parseFloat(Fcalc.ReadOut.value) / 100) *
+                parseFloat(Currents);
+        }
+    </script>
 </body>
 </html>
