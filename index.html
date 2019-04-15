@@ -8,11 +8,8 @@
     <!--Style.css-->
     <link rel="stylesheet" href="css/style.css">
     <style>
-        .disp{
-            font-size: 30px;
-            padding: 10px;
-        }
-        p input{
+
+        td input{
             font-size: 30px;
             padding: 20px;
         }
@@ -20,46 +17,175 @@
 </head>
 <body>
     <div class="h1">Калькулятор!</div>
-    <input class="disp" type="text" id="disply" readonly>
-    <p>
-        <input type="button" value="mrc" onclick="math('mrc')">
-        <input type="button" value="(" onclick="math('(')">
-        <input type="button" value=")" onclick="math(')')">
-        <input type="button" value="/" onclick="math('/')">
-    </p>
-    <p>
-        <input type="button" value="7" onclick="math('7')">
-        <input type="button" value="8" onclick="math('8')">
-        <input type="button" value="9" onclick="math('9')">
-        <input type="button" value="*" onclick="math('*')">
-    </p>
-    <p>
-        <input type="button" value="4" onclick="math('4')">
-        <input type="button" value="5" onclick="math('5')">
-        <input type="button" value="6" onclick="math('6')">
-        <input type="button" value="-" onclick="math('-')">
-    </p>
-    <p>
-        <input type="button" value="1" onclick="math('1')">
-        <input type="button" value="2" onclick="math('2')">
-        <input type="button" value="3" onclick="math('3')">
-        <input type="button" value="+" onclick="math('+')">
-    </p>
+    <form name="calc" action="">
+        <table class="tblCalc" cellpadding=0 cellspacing=0>
+            <tr>
+                <td colspan=5 align=middle>
+                    <input id="editWide" name="ReadOut" type="Text"
+                           size=28 value="0" width="250px">
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3"></td>
+                <td><input name="btnClear" type="Button"
+                           value="C" onclick="Clear()" /></td>
+                <td><input name="btnClearEntry" type="Button"
+                           value="CE" onclick="ClearEntry()" /></td>
+            </tr>
+            <tr>
+                <td><input name="btnSeven" type="Button"
+                           value="7" onclick="NumPressed(7)"></td>
+                <td><input name="btnEight" type="Button"
+                           value="8" onclick="NumPressed(8)"></td>
+                <td><input name="btnNine" type="Button"
+                           value="9" onclick="NumPressed(9)"></td>
+                <td><input name="btnPlus" type="Button"
+                           value="+" onclick="Operation('+')" /></td>
+                <td><input name="btnMultiply" type="Button"
+                           value="*" onclick="Operation('*')" /></td>
+                <td><input value="MC" type="Button" id="mc1" onclick="mc()" /></td>
+            </tr>
+            <tr>
+                <td><input name="btnFour" type="Button"
+                           value="4" onclick="NumPressed(4)"></td>
+                <td><input name="btnFive" type="Button"
+                           value="5" onclick="NumPressed(5)"></td>
+                <td><input name="btnSix" type="Button"
+                           value="6" onclick="NumPressed(6)"></td>
+                <td><input name="btnMinus" type="Button"
+                           value="-" onclick="Operation('-')" /></td>
+                <td align=middle><input name="btnDivide" type="Button"
+                                        value=" / " onclick="Operation('/')" /></td>
+            </tr>
+            <tr>
+                <td><input name="btnOne" type="Button"
+                           value="1" onclick="NumPressed(1)"></td>
+                <td><input name="btnTwo" type="Button"
+                           value="2" onclick="NumPressed(2)"></td>
+                <td><input name="btnThree" type="Button"
+                           value="3" onclick="NumPressed(3)"></td>
+                <td><input name="btnPercent" type="Button"
+                           value="%" onclick="Percent()" /></td>
+                <td align=middle>&nbsp;</td>
+            </tr>
+            <tr>
+                <td><input name="btnZero" type="Button"
+                           value="0" onclick="NumPressed(0)"></td>
+                <td><input name="btnDecimal" type="Button"
+                           value="." onclick="Decimal()"></td>
+                <td><input name="btnNeg" type="button"
+                           value="+/-" onclick="Neg()" /></td>
+                <td colspan="2"><input id="btnWide" name="btnEquals"
+                                       type="Button" value="=" onclick="Operation('=')"></td>
+            </tr>
+        </table>
+    </form>
 
 
 <script type="text/javascript">
-    function plus() {
-        var num1, num2, result;
-        num1 = document.getElementById('n11').value;
-        num1 = parseInt(num1);
+    var Fcalc = document.calc;
+    var Currents = 0;
+    var FlagNewNum = false;
+    var PendingOp = "";
 
-        num2 = document.getElementById('n22').value;
-        num2 = parseInt(num2);
 
-        result = num1 + num2;
-        document.getElementById('out').innerHTML = result;
+    // обработчик нажатия
+    // цифровой кнопки
+    function NumPressed (Num)
+    {
+        if (FlagNewNum)
+        {
+            Fcalc.ReadOut.value = Num;
+            FlagNewNum = false;
+        }
+        else
+        {
+            if (Fcalc.ReadOut.value == "0")
+                Fcalc.ReadOut.value = Num;
+            else
+                Fcalc.ReadOut.value += Num;
+        }
+    }
+    var arry = [];
+    function mc() {
+        var b = arry.shift();
+      document.getElementById('editWide').value = b;
+    }
+    // обработчик нажатия
+    // кнопки действия
+    function Operation (Op)
+    {
+        var Readout = Fcalc.ReadOut.value;
+        if (FlagNewNum && PendingOp != "=")
+        {
+            Fcalc.ReadOut.value = Currents;
+        }
+        else
+        {
+            FlagNewNum = true;
+            if ( '+' == PendingOp )
+                Currents += parseFloat(Readout);
+            else if ( '-' == PendingOp )
+                Currents -= parseFloat(Readout);
+            else if ( '/' == PendingOp )
+                Currents /= parseFloat(Readout);
+            else if ( '*' == PendingOp )
+                Currents *= parseFloat(Readout);
+            else
+                Currents = parseFloat(Readout);
+            Fcalc.ReadOut.value = Currents;
+            PendingOp = Op;
+        }
+        var total = arry.push(Currents);
     }
 
+
+    // добавление десятичной точки с числу
+    function Decimal ()
+    {
+        var curReadOut = Fcalc.ReadOut.value;
+        if (FlagNewNum)
+        {
+            curReadOut = "0.";
+            FlagNewNum = false;
+        }
+        else
+        {
+            if (curReadOut.indexOf(".") == -1)
+                curReadOut += ".";
+        }
+        Fcalc.ReadOut.value = curReadOut;
+    }
+
+    // Очистка текущего результата
+    function ClearEntry ()
+    {
+        Fcalc.ReadOut.value = "0";
+        FlagNewNum = true;
+    }
+
+    // Полная очистка всех результатов
+    function Clear ()
+    {
+        Currents = 0;
+        PendingOp = "";
+        ClearEntry();
+
+    }
+
+    // меняем знак текущего результата
+    function Neg ()
+    {
+        Fcalc.ReadOut.value =
+            parseFloat(Fcalc.ReadOut.value) * -1;
+    }
+    // вычисляем значение процентов
+    function Percent ()
+    {
+        Fcalc.ReadOut.value =
+            (parseFloat(Fcalc.ReadOut.value) / 100) *
+            parseFloat(Currents);
+    }
 </script>
 </body>
 </html>
