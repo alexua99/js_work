@@ -44,6 +44,7 @@
                 <td><input name="btnMultiply" type="Button"
                            value="*" onclick="Operation('*')" /></td>
                 <td><input value="MC" type="Button" id="mc1" onclick="mc()" /></td>
+                <td><input value="MC+" type="Button"  onclick="mcc()" /></td>
             </tr>
             <tr>
                 <td><input name="btnFour" type="Button"
@@ -110,9 +111,18 @@
     //возвращает результат
     var arry = [];
     function mc() {
-        var b = arry.shift();
-      document.getElementById('editWide').value = b;
+        if (arry.length > 0){
+            arry.reverse();
+            var b = arry.shift();
+            document.getElementById('editWide').value = b;
+        }
+
     }
+    //Сохраняет результат
+    function mcc() {
+        var total = arry.push(Currents)
+    }
+
     // обработчик нажатия
     // кнопки действия
     function Operation (Op)
@@ -138,8 +148,9 @@
             Fcalc.ReadOut.value = Currents;
             PendingOp = Op;
         }
-        var total = arry.push(Currents);
+        //var total = arry.push(Currents);
     }
+
 
 
     // добавление десятичной точки с числу
