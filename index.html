@@ -7,43 +7,59 @@
     <title>JS_worck</title>
     <!--Style.css-->
     <link rel="stylesheet" href="css/style.css">
+    <style>
+        .disp{
+            font-size: 30px;
+            padding: 10px;
+        }
+        p input{
+            font-size: 30px;
+            padding: 20px;
+        }
+    </style>
 </head>
 <body>
     <div class="h1">Калькулятор!</div>
+    <input class="disp" type="text" id="disply" readonly>
+    <p>
+        <input type="button" value="mrc" onclick="math('mrc')">
+        <input type="button" value="(" onclick="math('(')">
+        <input type="button" value=")" onclick="math(')')">
+        <input type="button" value="/" onclick="math('/')">
+    </p>
+    <p>
+        <input type="button" value="7" onclick="math('7')">
+        <input type="button" value="8" onclick="math('8')">
+        <input type="button" value="9" onclick="math('9')">
+        <input type="button" value="*" onclick="math('*')">
+    </p>
+    <p>
+        <input type="button" value="4" onclick="math('4')">
+        <input type="button" value="5" onclick="math('5')">
+        <input type="button" value="6" onclick="math('6')">
+        <input type="button" value="-" onclick="math('-')">
+    </p>
+    <p>
+        <input type="button" value="1" onclick="math('1')">
+        <input type="button" value="2" onclick="math('2')">
+        <input type="button" value="3" onclick="math('3')">
+        <input type="button" value="+" onclick="math('+')">
+    </p>
 
 
-    
-    
-     <script type="text/javascript">
-     
-     var arry01 = new Array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
-         alert(arry01);
-        var x1 = +prompt("Num1 s");
-        var y1 = +prompt("Num2 do");
-        var arry02 = arry01.slice(x1, y1);
-        alert(arry02);
+<script type="text/javascript">
+    function plus() {
+        var num1, num2, result;
+        num1 = document.getElementById('n11').value;
+        num1 = parseInt(num1);
 
-    /*
-        function text(tex){
-            
-            for (var i = 1; i < 10; i++){
-                document.write(i + " ");
-                if (i % 3 == 0){
-                    document.write(" " + "<br/>");
-                }
-            };
-        };       
-        var s = String(prompt("Введите команду: Введите пароль"));
-            while ( s != "calc") {
-                 s = String(prompt("Не верный пароль!"));
-               
-            } 
-            if (s == "calc"){
-                text("Вход!");
-                };
-             */
-             
-        
-    </script>
+        num2 = document.getElementById('n22').value;
+        num2 = parseInt(num2);
+
+        result = num1 + num2;
+        document.getElementById('out').innerHTML = result;
+    }
+
+</script>
 </body>
 </html>
