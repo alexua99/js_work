@@ -6,15 +6,12 @@ var PendingOp = "";
 
 // обработчик нажатия
 // цифровой кнопки
-function NumPressed (Num)
-{
-    if (FlagNewNum)
-    {
+function NumPressed(Num) {
+    if (FlagNewNum) {
         Fcalc.ReadOut.value = Num;
         FlagNewNum = false;
     }
-    else
-    {
+    else {
         if (Fcalc.ReadOut.value == "0")
             Fcalc.ReadOut.value = Num;
         else
@@ -25,7 +22,7 @@ function NumPressed (Num)
 //возвращает результат
 var arry = [];
 function mc() {
-    if (arry.length > 0){
+    if (arry.length > 0) {
         arry.reverse();
         var b = arry.shift();
         document.getElementById('editWide').value = b;
@@ -39,23 +36,20 @@ function mcc() {
 
 // обработчик нажатия
 // кнопки действия
-function Operation (Op)
-{
+function Operation(Op) {
     var Readout = Fcalc.ReadOut.value;
-    if (FlagNewNum && PendingOp != "=")
-    {
+    if (FlagNewNum && PendingOp != "=") {
         Fcalc.ReadOut.value = Currents;
     }
-    else
-    {
+    else {
         FlagNewNum = true;
-        if ( '+' == PendingOp )
+        if ('+' == PendingOp)
             Currents += parseFloat(Readout);
-        else if ( '-' == PendingOp )
+        else if ('-' == PendingOp)
             Currents -= parseFloat(Readout);
-        else if ( '/' == PendingOp )
+        else if ('/' == PendingOp)
             Currents /= parseFloat(Readout);
-        else if ( '*' == PendingOp )
+        else if ('*' == PendingOp)
             Currents *= parseFloat(Readout);
         else
             Currents = parseFloat(Readout);
@@ -68,16 +62,13 @@ function Operation (Op)
 
 
 // добавление десятичной точки с числу
-function Decimal ()
-{
+function Decimal() {
     var curReadOut = Fcalc.ReadOut.value;
-    if (FlagNewNum)
-    {
+    if (FlagNewNum) {
         curReadOut = "0.";
         FlagNewNum = false;
     }
-    else
-    {
+    else {
         if (curReadOut.indexOf(".") == -1)
             curReadOut += ".";
     }
@@ -85,15 +76,13 @@ function Decimal ()
 }
 
 // Очистка текущего результата
-function ClearEntry ()
-{
+function ClearEntry() {
     Fcalc.ReadOut.value = "0";
     FlagNewNum = true;
 }
 
 // Полная очистка всех результатов
-function Clear ()
-{
+function Clear() {
     Currents = 0;
     PendingOp = "";
     ClearEntry();
@@ -101,14 +90,12 @@ function Clear ()
 }
 
 // меняем знак текущего результата
-function Neg ()
-{
+function Neg() {
     Fcalc.ReadOut.value =
         parseFloat(Fcalc.ReadOut.value) * -1;
 }
 // вычисляем значение процентов
-function Percent ()
-{
+function Percent() {
     Fcalc.ReadOut.value =
         (parseFloat(Fcalc.ReadOut.value) / 100) *
         parseFloat(Currents);
