@@ -34,7 +34,7 @@ function mcc() {
     var total = arry.push(Currents)
 }
 
-// обработчик нажатия
+// обработчик нажатия!
 // кнопки действия
 function Operation(Op) {
     var Readout = Fcalc.ReadOut.value;
