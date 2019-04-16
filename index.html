@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>JS_worck</title>
+    <!--Font Awesome-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <!--Style.css-->
     <link rel="stylesheet" href="css/style.css">
 </head>
@@ -13,25 +15,28 @@
 <body>
 
     <form name="calc" action="">
-        <table class="tblCalc" cellpadding=0 cellspacing=0>
+        <h1>ITEA JavaScript</h1>
+        <h2>Alek Kosenko</h2>
+        <table class="tblCalc" cellpadding=2 cellspacing=2>
             <tr>
-                <td colspan=5 align=middle>
-                  <input id="editWide" name="ReadOut" type="Text" size=28 value="0" width="250px">
+                <td colspan="3" >
+                  <input id="editWide" name="ReadOut" type="Text" size=25 value="0" width="150px">
                 </td>
                 <td><input value="MC" type="Button" id="mc1" onclick="mc()" /></td>
                 <td><input value="MC+" type="Button" onclick="mcc()" /></td>
+               
             </tr>
-            <tr>
-                <td><input name="btnMultiply" type="Button" value="*" onclick="Operation('*')" /></td>
+            <tr >
                 <td><input name="btnDivide" type="Button" value=" / " onclick="Operation('/')" /></td>
-                <td><input name="btnClear" type="Button" value="C" onclick="Clear()" /></td>
                 <td><input name="btnClearEntry" type="Button" value="CE" onclick="ClearEntry()" /></td>
+                <td><input name="btnClear" type="Button" value="C" onclick="Clear()" /></td>
+                <td colspan="3"><input name="btnMultiply" type="Button" value="*" onclick="Operation('*')" /></td>
             </tr>
             <tr>
                 <td><input name="btnSeven" type="Button" value="7" onclick="NumPressed(7)"></td>
                 <td><input name="btnEight" type="Button" value="8" onclick="NumPressed(8)"></td>
                 <td><input name="btnNine" type="Button" value="9" onclick="NumPressed(9)"></td>
-                <td><input name="btnPlus" type="Button" value="+" onclick="Operation('+')" /></td>
+                <td colspan="3"><input name="btnPlus" type="Button" value="+" onclick="Operation('+')" /></td>
 
 
             </tr>
@@ -39,21 +44,20 @@
                 <td><input name="btnFour" type="Button" value="4" onclick="NumPressed(4)"></td>
                 <td><input name="btnFive" type="Button" value="5" onclick="NumPressed(5)"></td>
                 <td><input name="btnSix" type="Button" value="6" onclick="NumPressed(6)"></td>
-                <td><input name="btnMinus" type="Button" value="-" onclick="Operation('-')" /></td>
+                <td colspan="3"><input name="btnMinus" type="Button" value="-" onclick="Operation('-')" /></td>
             </tr>
             <tr>
                 <td><input name="btnOne" type="Button" value="1" onclick="NumPressed(1)"></td>
                 <td><input name="btnTwo" type="Button" value="2" onclick="NumPressed(2)"></td>
                 <td><input name="btnThree" type="Button" value="3" onclick="NumPressed(3)"></td>
-                <td><input name="btnPercent" type="Button" value="%" onclick="Percent()" /></td>
+                <td colspan="3"><input name="btnPercent" type="Button" value="%" onclick="Percent()" /></td>
             </tr>
             <tr>
 
                 <td><input name="btnDecimal" type="Button" value="." onclick="Decimal()"></td>
                 <td><input name="btnZero" type="Button" value="0" onclick="NumPressed(0)"></td>
                 <td><input name="btnNeg" type="button" value="+/-" onclick="Neg()" /></td>
-                <td colspan="2"><input id="btnWide" name="btnEquals" type="Button" value="=" onclick="Operation('=')">
-                </td>
+                <td colspan="3"><input id="btnWide" name="btnEquals" type="Button" value="=" onclick="Operation('=')"></td>
             </tr>
         </table>
     </form>
