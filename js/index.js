@@ -21,22 +21,28 @@ function NumPressed(Num) {
 
 //возвращает результат
 var arry = [];
+var arry1 = [];
 function mc() {
-    if (arry.length > 0) {
-        arry.reverse();
-        var b = arry.shift();
+    if (arry1.length > 0) {
+        arry1.reverse();
+        var b = arry1.shift();
         document.getElementById('editWide').value = b;
     }
 
 }
 //Сохраняет результат
 function mcc() {
-    var total = arry.push(Currents)
-}
+    if (arry1.length <= arry.length && arry.length > 0){
+      var b = arry.shift();
+      var tot = arry1.push(b)
+    }
+  }
+
 
 // обработчик нажатия!
 // кнопки действия
 function Operation(Op) {
+  var total;
     var Readout = Fcalc.ReadOut.value;
     if (FlagNewNum && PendingOp != "=") {
         Fcalc.ReadOut.value = Currents;
@@ -44,19 +50,24 @@ function Operation(Op) {
     else {
         FlagNewNum = true;
         if ('+' == PendingOp)
-            Currents += parseFloat(Readout);
-        else if ('-' == PendingOp)
+            {Currents += parseFloat(Readout);
+              total = arry.push(Currents);
+            }
+        else if ('-' == PendingOp){
             Currents -= parseFloat(Readout);
-        else if ('/' == PendingOp)
+            total = arry.push(Currents);
+        }else if ('/' == PendingOp){
             Currents /= parseFloat(Readout);
-        else if ('*' == PendingOp)
+            total = arry.push(Currents);
+        }else if ('*' == PendingOp){
             Currents *= parseFloat(Readout);
-        else
+            total = arry.push(Currents);
+        }else
             Currents = parseFloat(Readout);
         Fcalc.ReadOut.value = Currents;
         PendingOp = Op;
     }
-    //var total = arry.push(Currents);
+  //var total = arry.push(Currents);
 }
 
 
