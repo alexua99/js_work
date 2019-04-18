@@ -33,7 +33,7 @@ function mc() {
 //Сохраняет результат
 function mcc() {
     if (arry1.length <= arry.length && arry.length > 0){
-      var b = arry.shift();
+      var b = arry.pop();
       var tot = arry1.push(b)
     }
   }
